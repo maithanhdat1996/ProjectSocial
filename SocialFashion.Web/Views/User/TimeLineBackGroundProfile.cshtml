@@ -1,0 +1,40 @@
+﻿<div class="joms-avatar--focus joms-online">
+    <a href="@Url.Action("Upload","Avatar")" style="cursor:pointer">
+        <img src="@Url.Content("~/"+Model.ImageAvartar)" alt="@Model.Name">
+
+    </a>
+</div>
+
+<div class="joms-focus__title">
+    <form action="/Avatar/_UploadCover" data-ajax="true" data-ajax-method="POST" enctype="multipart/form-data" id="avatar-upload-form1" method="post">
+        <input type="file" name="files">
+    </form>
+
+    <script>
+                                var maxSizeAllowed = 2;     // Upload limit in MB
+                                var maxSizeInBytes = maxSizeAllowed * 1024 * 1024;
+                                var keepUploadBox = false;  // ToDo - Remove if you want to keep the upload box
+                                var keepCropBox = false;    // ToDo - Remove if you want to keep the crop box
+                                $('#avatar-upload-form1 input:file').on("change", function (e) {
+                                    var files = e.currentTarget.files;
+                                    for (var x in files) {
+                                        if (files[x].name != "item" && typeof files[x].name != "undefined") {
+                                            if (files[x].size <= maxSizeInBytes) {
+                                                // Submit the selected file
+                                                $('#avatar-upload-form1 .upload-file-notice').removeClass('bg-danger');
+                                                $('#avatar-upload-form1').submit();
+                                            } else {
+                                                // File too large
+                                                $('#avatar-upload-form1 .upload-file-notice').addClass('bg-danger');
+                                            }
+                                        }
+                                    }
+                                });
+
+
+    </script>
+    <h2>@Model.Name</h2>
+
+    
+
+</div>

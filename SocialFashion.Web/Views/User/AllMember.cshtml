@@ -1,0 +1,171 @@
+﻿@model IEnumerable<SocialFashion.Model.Models.Users_List_Result>
+    
+    @{
+        ViewBag.Title = "AllMember";
+        Layout = "~/Views/Share/Layout.cshtml";
+    }
+
+    <div class="joms-page">
+        <div class="joms-list__search">
+            <div class="joms-list__search-title">
+                <h3 class="joms-page__title">All Members</h3>
+            </div>
+
+            <div class="joms-list__utilities">
+                <form method="post" class="joms-inline--desktop" action="/search/display">
+                    <span>
+                        <input type="text" name="q" class="joms-input--search" value="" placeholder="Search for Members">
+                    </span>
+                    <span>
+                        <button class="joms-button--neutral">GO</button>
+                    </span>
+                    <input type="hidden" name="search" value="friends">
+                </form>
+                <div onclick="window.location='/friends/invite';" class="joms-button--add">
+                    Invite Friends                    <svg class="joms-icon" viewBox="0 0 16 16">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://socialize.jomsocial.com/search/browse?sort=latest#joms-icon-plus"></use>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="joms-subnav">
+            <ul>
+                <li class=" ">
+                    <a href="/search/advancesearch" onclick="">Advanced search</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="joms-subnav__menu">
+            <a href="javascript:" class="joms-button--neutral joms-button--full" data-ui-object="joms-dropdown-button">
+                Advanced search        <svg viewBox="0 0 16 16" class="joms-icon">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://socialize.jomsocial.com/search/browse?sort=latest#joms-icon-arrow-down"></use>
+                </svg>
+            </a>
+            <ul class="joms-dropdown">
+                <li class=" ">
+                    <a href="/search/advancesearch" onclick="">Advanced search</a>
+                </li>
+            </ul>
+            <div class="joms-gap"></div>
+        </div>
+
+        <div class="joms-subnav--desktop">
+            <ul>
+                <li class=" ">
+                    <a href="/search/advancesearch" onclick="">Advanced search</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="joms-sortings">
+            <script>
+                function joms_change_filterdropdown(value) {
+                    var url = value;
+                    url = url.replace('__sort__', value);
+
+                    window.location = url;
+                }
+            </script>
+            <div class="joms-select--wrapper">
+                <select class="joms-select" onchange="joms_change_filterdropdown(this.value);">
+                    <!-- <li class="filter-label">Sort by:</li> -->
+                    <option value="/search/browse?sort=online">Online</option>
+                    <option selected="" value="/search/browse?sort=latest">Latest</option>
+                    <option value="/search/browse?sort=alphabetical">Alphabetical</option>
+                    <option value="/search/browse?sort=featured">Featured</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="joms-gap"></div>
+        <div class="clearfix">
+
+            <ul class="joms-list--alphabet">
+                <!-- <li class="filter-label">Show:</li> -->
+                <li class=" active">
+                    <a href="/search/browse?filter=all">All</a>
+                </li>
+                <li class="">
+                    <a href="/search/browse?filter=abc">abc</a>
+                </li>
+                <li class="">
+                    <a href="/search/browse?filter=def">def</a>
+                </li>
+                <li class="">
+                    <a href="/search/browse?filter=ghi">ghi</a>
+                </li>
+                <li class="">
+                    <a href="/search/browse?filter=jkl">jkl</a>
+                </li>
+                <li class="">
+                    <a href="/search/browse?filter=mno">mno</a>
+                </li>
+                <li class="">
+                    <a href="/search/browse?filter=pqr">pqr</a>
+                </li>
+                <li class="">
+                    <a href="/search/browse?filter=stu">stu</a>
+                </li>
+                <li class="">
+                    <a href="/search/browse?filter=vwx">vwx</a>
+                </li>
+                <li class="">
+                    <a href="/search/browse?filter=yz">yz</a>
+                </li>
+                <li class="">
+                    <a href="/search/browse?filter=others">Others</a>
+                </li>
+            </ul>
+        </div>
+        <div class="joms-gap"></div>
+
+
+
+
+        <ul class="joms-list--friend">
+            @foreach (var item in Model)
+            {
+                <li class="joms-list__item">
+                    <!-- avatar -->
+
+                    <div class="joms-list__avatar ">
+                        <a href="@Url.Action("Profile", "User", new { id = item.Id })" class="joms-avatar">
+                            <img data-author="128" src="/components/com_community/assets/user-Male-thumb.png" alt="iJoomla.com">
+                        </a>
+                    </div>
+                    <div class="joms-list__body">
+                        <!-- name -->
+                        <a href="@Url.Action("Profile", "User", new { id = item.Id })" class="joms-avatar"><h4 class="joms-text--username">@item.Name</h4></a>
+
+                        <!-- friends count -->
+                        <span class="joms-text--title">
+                            0 Friends
+                        </span>
+
+                    </div>
+                    <div class="joms-list__actions">
+
+
+
+                        <!--
+                                                                                                <a class="joms-button--primary joms-button--small" href="javascript:" onclick="joms.api.friendAdd('128')">Add as Friend</a>
+
+                                             -->
+
+                    </div>
+                </li>
+            }
+           
+
+
+        </ul>
+
+
+        <div class="joms-pagination">
+            <ul class="pagination"><li class="disabled"><a>Start</a></li><li class="disabled"><a>Prev</a></li><li class="active"><a>1</a></li><li><a title="2" href="/search/browse?sort=latest&amp;limit=12&amp;start=12">2</a></li><li><a title="Next" href="/search/browse?sort=latest&amp;limit=12&amp;start=12">Next</a></li><li><a title="End" href="/search/browse?sort=latest&amp;limit=12&amp;start=12">End</a></li></ul>
+        </div>
+    </div>
+

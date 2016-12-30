@@ -1,0 +1,622 @@
+﻿@model SocialFashion.Model.Models.Users_GetById_Result
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Share/Layout.cshtml";
+}
+
+<script src="/Scripts/site.avatar.js"></script>
+<script src="/Scripts/jquery.Jcrop.js"></script>
+<script src="/Scripts/jquery.form.min.js"></script>
+
+
+<script src="/Scripts/ui/jquery.ui.min.js"></script>
+
+
+<div class="joms-body">
+    <div>
+
+        <div>
+
+
+
+
+            <!-- begin: focus area -->
+
+            <div class="joms-focus">
+
+                <div class="joms-focus__cover">
+
+                    <div class="joms-focus__cover-image joms-js--cover-image" id="timelineBackground">
+                        <img class="bgImage" src="@Model.ImageCover" alt="demo" style="width:100%;@Model.Position_Cover" >
+                    
+                    </div>
+
+
+                    
+
+                    
+
+                    <div class="joms-focus__header">
+                       
+                        <div class="joms-avatar--focus joms-online">
+                            <a href="@Url.Action("Upload","Avatar")" style="cursor:pointer">
+                                <img src="@Url.Content("~/"+Model.ImageAvartar)" alt="@Model.Name">
+
+                            </a>
+                        </div>
+
+                        <div class="joms-focus__title">
+                            <form action="/Avatar/_UploadCover" data-ajax="true" data-ajax-method="POST" enctype="multipart/form-data" id="avatar-upload-form1" method="post">
+                                <input   id="bgphotoimg" class="custom-file-input" type="file" name="files">
+                            </form>
+
+                            <script>
+                                var maxSizeAllowed = 2;     // Upload limit in MB
+                                var maxSizeInBytes = maxSizeAllowed * 1024 * 1024;
+                                var keepUploadBox = false;  // ToDo - Remove if you want to keep the upload box
+                                var keepCropBox = false;    // ToDo - Remove if you want to keep the crop box
+                                var imageFile = "";
+                                $('#avatar-upload-form1 input:file').on("change", function (e) {
+                                    var files = e.currentTarget.files;
+                                    for (var x in files) {
+                                        if (files[x].name != "item" && typeof files[x].name != "undefined") {
+                                            if (files[x].size <= maxSizeInBytes) {
+                                                // Submit the selected file
+                                                $('#avatar-upload-form1 .upload-file-notice').removeClass('bg-danger');
+                                                $('#avatar-upload-form1').submit();
+                                            } else {
+                                                // File too large
+                                                $('#avatar-upload-form1 .upload-file-notice').addClass('bg-danger');
+                                            }
+                                        }
+                                    }
+                                });
+
+                                $('#avatar-upload-form1').ajaxForm({
+                                    
+                                    success: function (data) {
+                                        
+                                        if (data.success === false) {
+                                            
+                                        } else {
+                                            imageFile = data.fileName;
+                                            $("#timelineBackground").find(".headerimage").remove();
+                                            $("#timelineBackground").append("<img id='timelineBGload'  class='headerimage ui-corner-all' style='top:0px' src='" + data.fileName + "' width='100%'>");
+                                            $(".joms-avatar--focus").append("<button class='bgSave wallbutton blackButton'>Save Cover</button>")
+                                        }
+                                    },
+                                    complete: function (xhr) {
+                                    }
+                                });
+
+                                $("body").on('mouseover', '.headerimage', function () {
+                                    var y1 = $('#timelineBackground').height();
+                                    var y2 = $('.headerimage').height();
+                                    $(this).draggable({
+                                        scroll: false,
+                                        axis: "y",
+                                        drag: function (event, ui) {
+                                            if (ui.position.top >= 0) {
+                                                ui.position.top = 0;
+                                            }
+                                            else if (ui.position.top <= y1 - y2) {
+                                                ui.position.top = y1 - y2;
+                                            }
+                                        },
+                                        stop: function (event, ui) {
+                                        }
+                                    });
+                                });
+
+                                $("body").on('click','.bgSave',function ()
+                                {
+                                    var p = $("#timelineBGload").attr("style");
+                                    var Y =p.split("top:");
+                                    var Z=Y[1].split(";");
+                                    var dataString =  "top:"+Z[0];
+                                    console.log(dataString);
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "/Avatar/SaveCover",
+                                        data: { position: dataString, imageFile: imageFile },
+                                        cache: false,
+                                        success: function(html)
+                                        {
+                                            if(html)
+                                            {
+                                                $(".bgImage").fadeOut('slow');
+                                                $(".bgSave").fadeOut('slow');
+                                                $("#timelineShade").fadeIn("slow");
+                                                $("#timelineBGload").removeClass("headerimage").css({'margin-top':html});
+                                                return false;
+                                            }
+                                        }
+                                    });
+                                    
+                                });
+
+                                
+                            </script>
+                            <h2>@Model.Name</h2>
+
+
+
+                        </div>
+
+
+
+                        @{
+                            if (ViewBag.IsFanOrOwn == 1)
+                            {
+                                <div class="joms-focus__actions__wrapper">
+                                    <!-- Friending buton -->
+                                    @if (ViewBag.checkHaveAddFriend == 1)
+                                    {
+                                        <a href="javascript:" class="joms-focus__button--add replyFriend">
+                                            tra loi ket ban
+                                        </a>
+                                    }
+                                    @if (ViewBag.checkHaveAddFriend == 0)
+                                    {
+                                        if (ViewBag.FriendStatus != -1 && ViewBag.FriendStatus != 1)
+                                        {
+                                            if (ViewBag.FriendStatus == 0)
+                                            {
+                                                <a href="javascript:" class="joms-focus__button--add">
+                                                    dang doi phan hoi
+                                                </a>
+                                            }
+                                        }
+                                        if (ViewBag.FriendStatus == -1)
+                                        {
+                                            if (ViewBag.IsAddFan == 1)
+                                            {
+                                                <a href="javascript:" class="joms-focus__button--add isAddFriend">
+                                                    them ban moi
+                                                </a>
+                                            }
+
+
+
+                                        }
+                                        if (ViewBag.FriendStatus == 1)
+                                        {
+                                            <a href="javascript:" class="joms-focus__button--add">
+                                                huy ket ban
+                                            </a>
+                                        }
+                                    }
+
+
+
+
+
+                                    <!-- Send Message button -->
+                                    <a href="javascript:" class="joms-focus__button--message" onclick="joms.api.pmSend('72')">
+                                        Send Message
+                                    </a>
+
+
+                                </div>
+                            }
+
+                        }
+
+
+                       
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            
+
+            <div class="joms-focus__button--options--desktop" style="top: 76px;">
+                <a id="optionProfile" href="#">
+                    <span class="glyphicon glyphicon-cog" style="font-size:21px"></span>
+                </a>
+                <!-- No need to populate menus as it is cloned from mobile version. -->
+                <ul class="joms-dropdown" style="display:none" id="dropdownProfile">
+
+                    <li><a href="#" id="changeAvatar">Change Avatar</a></li>
+                    <li class="joms-hidden--small"><a href="#">Reposition Cover</a></li>
+                    <li><a href="#">Modify Cover</a></li>
+
+
+
+
+
+
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="joms-focus__actions">
+
+            <a class="joms-focus__button--options" data-ui-object="joms-dropdown-button">Options</a>
+
+            <ul class="joms-dropdown">
+
+                <li><a href="javascript:" onclick="joms.api.avatarChange('profile', '69');">Change Avatar</a></li>
+                <li class="joms-hidden--small"><a href="javascript:" data-propagate="1" onclick="joms.api.coverReposition('profile', '69');">Reposition Cover</a></li>
+                <li><a href="javascript:" onclick="joms.api.coverChange('profile', '69');">Modify Cover</a></li>
+
+
+                <li><a href="javascript:" onclick="joms.api.userChangeVanityURL('69');">Change vanity URL</a></li>
+
+                <li><a href="javascript:" onclick="joms.api.avatarRemove(null, '69');">Remove Profile Picture</a></li>
+
+                <li><a href="javascript:" onclick="joms.api.coverRemove('profile', '69');">Remove Profile Cover Photo</a></li>
+
+
+
+                <li><a href="/profile/preferences">Preferences</a></li>
+
+
+
+            </ul>
+
+        </div>
+
+
+
+        <div class="joms-focus__info">
+        </div>
+
+        <ul class="joms-focus__link">
+
+            <li class="full">
+                <a href="/demo/friends">
+                    Friend <span class="joms-text--light">1</span>
+                </a>
+            </li>
+
+            <li class="half"><a href="/demo/photos">Photos <span class="joms-text--light">35</span></a></li>
+
+            <li class="half"><a href="/jomsocial/all-videos/demo">Videos <span class="joms-text--light">22</span></a></li>
+
+            <li class="half"><a href="/jomsocial/all-groups/demo">Groups <span class="joms-text--light">2</span></a></li>
+
+            <li class="half"><a href="/jomsocial/all-events/demo">Events <span class="joms-text--light">0</span></a></li>
+
+            <li class="full liked">
+                <a href="javascript:" class="joms-js--like-profile-69" onclick="joms.api.pageLike('profile', '69');" data-lang-like="Like" data-lang-liked="Liked">
+                    <svg viewBox="0 0 16 20" class="joms-icon">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#joms-icon-thumbs-up" class="joms-icon--svg-fixed joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified"></use>
+                    </svg>
+                    <span class="joms-js--lang">Like</span>
+                    <span class="joms-text--light"> 1</span>
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- end: focus area -->
+
+
+
+    <div class="joms-main joms-main--full">
+
+
+
+
+        <div data-ui-object="frontpage-main">
+            <div class="joms-middlezone" data-ui-object="joms-tabs">
+                <div>
+                    <div class="joms-tab__bar">
+                        <a class="active" href="#joms-app--feeds-special" id="a-Stream">Stream</a>
+                        <a href="#joms-app--aboutme-special" class="" id="a-Aboutme">About me</a>
+                    </div>
+
+                    <!-- begin: .app-box -->
+                   
+                    <!-- end: .app-box -->
+                    <!-- begin: .app-box -->
+                    <div id="joms-app--aboutme-special" class="joms-tab__content joms-tab__content--stream  app-core" style="display: none;">
+
+                        <div class="joms-gap"></div>
+
+                        <!-- end: .app-box-header -->
+                        <!-- begin: .app-box-content -->
+                        <div class="joms-app--wrapper">
+
+
+                            <div class="app-box-content">
+
+                                <ul class="joms-list__row joms-push">
+
+                                    <li><h4 class="joms-text--title joms-text--bold">Basic Information</h4></li>
+
+
+                                    <li>
+                                        <h5 class="joms-text--light">Gender</h5>
+                                        @if (Model.Gender == true)
+                                        {
+                                            <span>Male</span>
+                                        }
+                                        else
+                                        {
+                                            <span>Female</span>
+                                        }
+                                    </li>
+
+                                    <li>
+                                        <h5 class="joms-text--light">Birthdate</h5>
+                                        <span>
+                                            @ViewBag.birthDate
+                                        </span>
+                                    </li>
+
+                                    <li>
+                                        <h5 class="joms-text--light">About me</h5>
+                                        <span>
+                                            @Model.Aboutme
+                                        </span>
+                                    </li>
+                                </ul>
+
+
+                                <ul class="joms-list__row joms-push">
+
+                                    <li><h4 class="joms-text--title joms-text--bold">Contact Information</h4></li>
+
+
+                                    <li>
+                                        <h5 class="joms-text--light">Website</h5>
+                                        <span>
+                                            <a rel="nofollow" href="@Model.Website" target="_blank">@Model.Website</a>
+                                        </span>
+                                    </li>
+                                </ul>
+
+                            </div>
+                            <div class="joms-module__footer">
+                                @Html.ActionLink("Edit Profile", "ProfileEdit", new { id = @Model.Id }, new { @class = "joms-button--primary joms-button--full" })
+                            </div>
+
+
+
+                        </div>
+                        <!-- end: .app-box-content -->
+                    </div>
+                    <!-- end: .app-box -->
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+
+</div>
+<div id="modalReplyFriend" style="display:none">
+    <div class="mfp-bg mfp-ready opacityModalAddFan"></div>
+    <div class="mfp-wrap mfp-close-btn-in mfp-auto-cursor mfp-ready repFan" tabindex="-1" style="overflow-x: hidden; overflow-y: auto;">
+        <div class="mfp-container mfp-inline-holder joms-popup__wrapper mfp-s-ready">
+            <div class="mfp-content">
+                <div class="joms-popup joms-popup--whiteblock">
+                    <div class="joms-popup__title">
+                        <button class="mfp-close closeModalReplyAddFriend" type="button" title="Close (Esc)">×</button>Pending Friend Request
+                    </div>
+                    <div data-ui-object="popup-step-1">
+                        <div class="joms-popup__content">
+                            <div class="joms-stream__header" style="padding:0">
+                                <div class="joms-avatar--stream">
+                                    <img src="http://socialize.jomsocial.com/images/avatar/thumb_ac60bfaf953aea9f068fb06c.jpg">
+                                </div>
+                                <div class="joms-stream__meta">
+                                    <span><strong>@Model.Name</strong> gui loi ket ban den ban.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="joms-popup__content">
+                            <textarea id="msgAddFriend" class="joms-textarea" style="margin:0">@Model.Message</textarea>
+                        </div>
+                        <div class="joms-popup__action">
+                            <a href="#" data-request="deny" class="joms-button--neutral joms-button--small joms-left btnAcceptOrDenyFan">Tu choi</a> &nbsp;
+
+                            <button data-request="accept" class="joms-button--primary joms-button--small btnAcceptOrDenyFan">Dong y</button>
+
+
+                            <input type="hidden" id="idFriend" value="@Model.Id" />
+
+                        </div>
+                    </div>
+                    <div data-ui-object="popup-step-2" class="joms-popup__hide">
+                        <div class="joms-popup__content joms-popup__content--single" data-ui-object="popup-message"></div><div class="joms-popup__action">
+                            <button class="joms-button--neutral joms-button--small joms-js--button-close">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mfp-preloader">Loading...</div>
+        </div>
+    </div>
+</div>
+<div id="modalAddFan" style="display:none">
+    <div class="mfp-bg mfp-ready opacityModalAddFan"></div>
+    <div class="mfp-wrap mfp-close-btn-in mfp-auto-cursor mfp-ready addFan" tabindex="-1" style="overflow-x: hidden; overflow-y: auto;">
+        <div class="mfp-container mfp-inline-holder joms-popup__wrapper mfp-s-ready">
+            <div class="mfp-content">
+                <div class="joms-popup joms-popup--whiteblock">
+                    <div class="joms-popup__title">
+                        <button class="mfp-close closeModalAddFriend" type="button" title="Close (Esc)">×</button>Add New Friend
+                    </div>
+                    <div data-ui-object="popup-step-1">
+                        <div class="joms-popup__content">
+                            <div class="joms-stream__header" style="padding:0">
+                                <div class="joms-avatar--stream">
+                                    <img src="http://socialize.jomsocial.com/images/avatar/thumb_ac60bfaf953aea9f068fb06c.jpg">
+                                </div>
+                                <div class="joms-stream__meta">
+                                    <span>Add <strong>@Model.Name</strong> as your friend? Please add your introduction text below.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="joms-popup__content">
+                            <textarea id="msgAddFriend" class="joms-textarea" style="margin:0">Hi, I'd like to add you as friend.</textarea>
+                        </div>
+                        <div class="joms-popup__action">
+                            <a href="javascript:" class="joms-button--neutral joms-button--small joms-left">Cancel</a> &nbsp;
+
+                            <button class="joms-button--primary joms-button--small btnAddFriend">Add Friend</button>
+
+
+                            <input type="hidden" id="idFriend" value="@Model.Id" />
+
+                        </div>
+                    </div>
+                    <div data-ui-object="popup-step-2" class="joms-popup__hide">
+                        <div class="joms-popup__content joms-popup__content--single" data-ui-object="popup-message"></div><div class="joms-popup__action">
+                            <button class="joms-button--neutral joms-button--small joms-js--button-close">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mfp-preloader">Loading...</div>
+        </div>
+    </div>
+</div>
+<div id="modalChangeAvatar" style="display:none">
+    <div class="mfp-bg mfp-ready opacityModalChangeAvatar"></div>
+    <div class="mfp-wrap mfp-close-btn-in mfp-auto-cursor mfp-ready contentModalChangeAvatar" tabindex="-1" style="overflow-x: hidden; overflow-y: auto;">
+        <div class="mfp-container mfp-inline-holder joms-popup__wrapper mfp-s-ready">
+            <div class="mfp-content">
+                <div class="joms-popup joms-popup--whiteblock">
+                    <div class="joms-popup__title"><button class="mfp-close closeModalChangeAvatar" type="button" title="Close (Esc)">×</button>Change Avatar</div>
+                    <div class="joms-popup__content">
+                        <form method="POST" enctype="multipart/form-data" action="/photos/changeAvatar?type=profile&amp;id=69">
+                            <p>Select an image to upload:</p>
+                            <div class="joms-js--avatar-uploader-error joms-alert--warning" style="display:none"></div>
+                            <label class="label-filetype">
+                                <a class="joms-button--primary joms-button--small joms-button--full joms-js--button-upload" href="javascript:">
+                                    Upload photo
+                                </a>
+                                <div class="joms-progressbar" style="margin-top:4px;"><div class="joms-progressbar__progress"></div></div>
+                            </label>
+                        </form>
+                    </div>
+                    <div class="joms-avatar__cropper">
+                        <div class="joms-popup__content">
+                            <div>
+                                <div class="joms-cropper--info">
+                                    <strong>Crop Your Avatar for Thumbnail View</strong>
+                                    <p>Drag the corners of the transparent box to resize the thumbnail image.</p>
+                                </div>
+                                <div class="joms-cropper"><div class="joms-cropper__wrapper"><img src="http://socialize.jomsocial.com/images/avatar/profile-7e1aefed8ac11ed92f4f2746.jpg"><div class="joms-cropper__box" style="user-select: none; touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); cursor: sw-resize;"></div></div></div>
+                            </div>
+                        </div>
+                        <div class="joms-popup__action">
+                            <div>
+                                <div class="pull-left">
+                                    <button class="joms-button--neutral joms-button--small joms-js--button-rotate-left">Rotate Left</button>&nbsp;
+                                    <button class="joms-button--neutral joms-button--small joms-js--button-rotate-right">Rotate Right</button>
+                                </div>
+                                <button class="joms-button--primary joms-button--small joms-js--button-save">Save Thumbnail</button>
+                            </div>
+                            <div class="clearfix" style="margin-top:4px">
+                                <div class="pull-left">
+                                    <button class="joms-button--neutral joms-button--small" onclick="window.location = '/photos/removeAvatar?type=profile&amp;id=69';">Remove Avatar</button> &nbsp;
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="joms-popup__action"><button class="joms-button--neutral joms-button--small joms-js--button-close">Close</button></div>
+                </div>
+            </div><div class="mfp-preloader">Loading...</div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+
+    var htmlModalAddFan = $("#modalAddFan").html();
+
+    $(".isAddFriend").click(function () {
+        $(this).closest("body").append(htmlModalAddFan);
+    });
+
+
+    $("body").delegate(".closeModalAddFriend", "click", function () {
+        $(this).closest(".addFan").remove();
+        $(this).closest("body").find(".opacityModalAddFan").remove();
+    });
+
+   $("body").delegate(".btnAddFriend", "click", function () {
+        $.ajax({
+            url: '/user/AddFriend',
+            type: 'POST',
+            data: { id: $("#idFriend").val(), msg: $("#msgAddFriend").html() },
+            success: function (data) {
+                //called when successful
+
+                location.reload();
+            },
+            error: function (e) {
+                //called when there is an error
+                console.log("them that bai")
+            }
+        });
+    });
+
+
+   var htmlModalReplyAddFan = $("#modalReplyFriend").html();
+
+   $(".replyFriend").click(function () {
+       $(this).closest("body").append(htmlModalReplyAddFan);
+   });
+
+   $("body").delegate(".closeModalReplyAddFriend", "click", function () {
+       $(this).closest(".repFan").remove();
+       $(this).closest("body").find(".opacityModalAddFan").remove();
+   });
+
+   $("body").delegate(".btnAcceptOrDenyFan", "click", function () {
+       $.ajax({
+           url: '/user/ReplyFriend',
+           type: 'POST',
+           data: { RequestId: $("#idFriend").val(), StatusReply: $(this).attr("data-request") },
+           success: function (data) {
+               //called when successful
+
+               location.reload();
+           },
+           error: function (e) {
+               //called when there is an error
+               console.log("them that bai")
+           }
+       });
+   });
+
+   $("#optionProfile").on("click", function (event) {
+       event.preventDefault();
+       $("#dropdownProfile").css("display","block")
+   });
+
+   //var htmlModalChangeAvatar = $("#modalChangeAvatar").html();
+
+   //$("#changeAvatar").click(function (event) {
+   //    event.preventDefault();
+   //    $(this).closest("body").append(htmlModalChangeAvatar);
+   //});
+
+
+   //$("body").delegate(".closeModalChangeAvatar", "click", function () {
+   //    $(this).closest(".contentModalChangeAvatar").remove();
+   //    $(this).closest("body").find(".opacityModalChangeAvatar").remove();
+   //});
+
+
+</script>

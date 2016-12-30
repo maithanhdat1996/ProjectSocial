@@ -1,0 +1,45 @@
+﻿@using Microsoft.AspNet.Identity
+@using SocialFashion.Model.Models
+@model AspNetUser
+   
+@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+{
+    
+    <div class="navbar-right navbar-login">
+        <div class="navbar-user">
+            <a class="" href="@Url.Action("UserProfile", "User", new { id = Model.Id })">
+               
+                
+                    <img class="img-circle" width="30" src="@Url.Content("~/"+Model.ImageAvartar)" alt="@Model.Name" />
+                
+                
+
+                 
+                <span>@Model.Name</span>
+            </a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a href="/profile/preferences" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                    <span class="glyphicon glyphicon-cog"></span> <!--<span class="caret"></span>-->
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="@Url.Action("Upload","Avatar")">Change avatar</a></li>
+                    <li><a href="/profile/edit">Edit profile</a></li>
+                    <li><a href="/profile/preferences">Change privacy</a></li>
+                </ul>
+            </li>
+
+            <li>
+
+                @Html.AntiForgeryToken()
+                <a class="dropdown-toggle" href="javascript:document.getElementById('logoutForm').submit()" title="Log out">
+                    <span class="glyphicon glyphicon-off"></span>
+                </a>
+
+            </li>
+
+
+        </ul>
+    </div>
+}

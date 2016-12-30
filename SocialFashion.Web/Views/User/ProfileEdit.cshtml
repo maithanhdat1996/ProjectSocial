@@ -1,0 +1,575 @@
+﻿@model SocialFashion.Model.Models.Users_GetById_Result
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Share/Layout.cshtml";
+}
+<div class="joms-body">
+    <div>
+
+        <div>
+
+
+
+
+            <!-- begin: focus area -->
+
+            <div class="joms-focus">
+
+                <div class="joms-focus__cover">
+
+                    <div class="joms-focus__cover-image joms-js--cover-image">
+                        <img src="http://socialize.jomsocial.com/images/cover/profile/69/a8a309057a0c85fcdda06cdb40b40d71.jpg" alt="demo" style="width:100%;top:-22.1498%" onclick="joms.api.coverClick(8, 83);">
+                    </div>
+
+                    <div class="joms-focus__cover-image--mobile joms-js--cover-image-mobile" style="background:url(http://socialize.jomsocial.com/images/cover/profile/69/a8a309057a0c85fcdda06cdb40b40d71.jpg) no-repeat center center" onclick="joms.api.coverClick(8, 83);">
+                    </div>
+
+                    <div class="joms-focus__header">
+                        <div class="joms-avatar--focus joms-online">
+                            <a href="#" style="cursor:default" onclick="joms.api.photoOpen(33, 84); return false;">
+                                <img src="http://socialize.jomsocial.com/images/avatar/7e1aefed8ac11ed92f4f2746.jpg?_=1482162423" alt="demo">
+
+                            </a>
+                        </div>
+
+                        <div class="joms-focus__title">
+                            <h2>@Model.Name</h2>
+
+                            <div class="joms-focus__header__actions">
+
+                                <a class="joms-button--viewed nolink" title="546 views">
+                                    <svg viewBox="0 0 16 16" class="joms-icon">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#joms-icon-eye" class="joms-icon--svg-fixed joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified"></use>
+                                    </svg>
+                                    <span>546</span>
+                                </a>
+
+                                <a class="joms-button--shared" title="Share This" href="javascript:" onclick="joms.api.pageShare('http://socialize.jomsocial.com/demo/profile')">
+                                    <svg viewBox="0 0 16 16" class="joms-icon">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#joms-icon-redo" class="joms-icon--svg-fixed joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified"></use>
+                                    </svg>
+                                </a>
+
+
+                            </div>
+
+                            <div class="joms-focus__info--desktop">
+                            </div>
+
+                        </div>
+
+
+                        @{
+                            if (ViewBag.IsFanOrOwn == 1)
+                            {
+                                <div class="joms-focus__actions__wrapper">
+                                    <!-- Friending buton -->
+                                    @if (ViewBag.checkHaveAddFriend == 1)
+                                    {
+                                        <a href="javascript:" class="joms-focus__button--add replyFriend">
+                                            tra loi ket ban
+                                        </a>
+                                    }
+                                    @if (ViewBag.checkHaveAddFriend == 0)
+                                    {
+                                        if (ViewBag.FriendStatus != -1 && ViewBag.FriendStatus != 1)
+                                        {
+                                            if (ViewBag.FriendStatus == 0)
+                                            {
+                                                <a href="javascript:" class="joms-focus__button--add">
+                                                    dang doi phan hoi
+                                                </a>
+                                            }
+                                        }
+                                        if (ViewBag.FriendStatus == -1)
+                                        {
+                                            if (ViewBag.IsAddFan == 1)
+                                            {
+                                                <a href="javascript:" class="joms-focus__button--add isAddFriend">
+                                                    them ban moi
+                                                </a>
+                                            }
+
+
+
+                                        }
+                                        if (ViewBag.FriendStatus == 1)
+                                        {
+                                            <a href="javascript:" class="joms-focus__button--add">
+                                                huy ket ban
+                                            </a>
+                                        }
+                                    }
+
+
+
+
+
+                                    <!-- Send Message button -->
+                                    <a href="javascript:" class="joms-focus__button--message" onclick="joms.api.pmSend('72')">
+                                        Send Message
+                                    </a>
+
+
+                                </div>
+                            }
+
+                        }
+
+
+                        <a class="joms-button--viewed nolink" title="546 views">
+                            <svg viewBox="0 0 16 16" class="joms-icon">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#joms-icon-eye" class="joms-icon--svg-fixed joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified"></use>
+                            </svg>
+                            <span>546</span>
+                        </a>
+
+                        <a class="joms-button--shared" title="Share This" href="javascript:" onclick="joms.api.pageShare('http://socialize.jomsocial.com/demo/profile')">
+                            <svg viewBox="0 0 16 16" class="joms-icon">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#joms-icon-redo" class="joms-icon--svg-fixed joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified"></use>
+                            </svg>
+                        </a>
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <div class="joms-focus__actions--reposition">
+                <input type="button" class="joms-button--neutral" data-ui-object="button-cancel" value="Cancel"> &nbsp;
+                <input type="button" class="joms-button--primary" data-ui-object="button-save" value="Save">
+            </div>
+
+            <div class="joms-focus__button--options--desktop">
+                <a href="javascript:" data-ui-object="joms-dropdown-button">
+
+                </a>
+                <!-- No need to populate menus as it is cloned from mobile version. -->
+                <ul class="joms-dropdown">
+
+                    <li><a href="javascript:" onclick="joms.api.avatarChange('profile', '69');">Change Avatar</a></li>
+                    <li class="joms-hidden--small"><a href="javascript:" data-propagate="1" onclick="joms.api.coverReposition('profile', '69');">Reposition Cover</a></li>
+                    <li><a href="javascript:" onclick="joms.api.coverChange('profile', '69');">Modify Cover</a></li>
+
+
+                    <li><a href="javascript:" onclick="joms.api.userChangeVanityURL('69');">Change vanity URL</a></li>
+
+                    <li><a href="javascript:" onclick="joms.api.avatarRemove(null, '69');">Remove Profile Picture</a></li>
+
+                    <li><a href="javascript:" onclick="joms.api.coverRemove('profile', '69');">Remove Profile Cover Photo</a></li>
+
+
+
+                    <li><a href="/profile/preferences">Preferences</a></li>
+
+
+
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="joms-focus__actions">
+
+            <a class="joms-focus__button--options" data-ui-object="joms-dropdown-button">Options</a>
+
+            <ul class="joms-dropdown">
+
+                <li><a href="javascript:" onclick="joms.api.avatarChange('profile', '69');">Change Avatar</a></li>
+                <li class="joms-hidden--small"><a href="javascript:" data-propagate="1" onclick="joms.api.coverReposition('profile', '69');">Reposition Cover</a></li>
+                <li><a href="javascript:" onclick="joms.api.coverChange('profile', '69');">Modify Cover</a></li>
+
+
+                <li><a href="javascript:" onclick="joms.api.userChangeVanityURL('69');">Change vanity URL</a></li>
+
+                <li><a href="javascript:" onclick="joms.api.avatarRemove(null, '69');">Remove Profile Picture</a></li>
+
+                <li><a href="javascript:" onclick="joms.api.coverRemove('profile', '69');">Remove Profile Cover Photo</a></li>
+
+
+
+                <li><a href="/profile/preferences">Preferences</a></li>
+
+
+
+            </ul>
+
+        </div>
+
+        <img src="http://socialize.jomsocial.com/components/com_community/assets/badge_1.png" alt="0" class="joms-focus__badges  ">
+
+
+        <div class="joms-focus__info">
+        </div>
+
+        <ul class="joms-focus__link" style="display: none">
+
+            <li class="full">
+                <a href="/demo/friends">
+                    Friend <span class="joms-text--light">1</span>
+                </a>
+            </li>
+
+            <li class="half"><a href="/demo/photos">Photos <span class="joms-text--light">35</span></a></li>
+
+            <li class="half"><a href="/jomsocial/all-videos/demo">Videos <span class="joms-text--light">22</span></a></li>
+
+            <li class="half"><a href="/jomsocial/all-groups/demo">Groups <span class="joms-text--light">2</span></a></li>
+
+            <li class="half"><a href="/jomsocial/all-events/demo">Events <span class="joms-text--light">0</span></a></li>
+
+            <li class="full liked">
+                <a href="javascript:" class="joms-js--like-profile-69" onclick="joms.api.pageLike('profile', '69');" data-lang-like="Like" data-lang-liked="Liked">
+                    <svg viewBox="0 0 16 20" class="joms-icon">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#joms-icon-thumbs-up" class="joms-icon--svg-fixed joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified"></use>
+                    </svg>
+                    <span class="joms-js--lang">Like</span>
+                    <span class="joms-text--light"> 1</span>
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- end: focus area -->
+
+
+
+    <div class="joms-main joms-main--full">
+
+
+
+
+        <div data-ui-object="frontpage-main">
+            <div class="joms-middlezone" data-ui-object="joms-tabs">
+                <div>
+                    <div class="joms-tab__bar">
+                        <a class="active" href="#joms-app--feeds-special" id="a-Stream">Infomation</a>
+                        <a href="#joms-app--aboutme-special" class="" id="a-Aboutme">Account</a>
+                    </div>
+
+                    <div id="joms-app--feeds-special" class="joms-tab__content joms-tab__content--stream  app-core" style="display: block;">
+                        @using (Html.BeginForm("ProfileEdit", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary("", new { @class = "text-danger" })
+                            <legend class="joms-form__legend">Basic Information</legend>
+
+                            <div class="joms-form__group has-privacy">
+                                <span>
+                                    @Html.LabelFor(m => m.Name)
+                                </span>
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Name, new { @class = "joms-input" })
+                                </div>
+                            </div>
+
+                            <div class="joms-form__group has-privacy">
+                                <span> @Html.LabelFor(m => m.Gender) <span class="joms-required">*</span> </span>
+                                <div class="joms-select--wrapper joms-select--expand">
+                                    <select name="Gender" class="joms-select">
+                                        <option value="false" selected="">Female</option>
+                                        <option value="true" selected ="@Model.Gender">Male</option>
+
+                                    </select>
+                                </div>
+
+                            </div>
+
+
+
+
+                            <div class="joms-form__group has-privacy">
+                                <span>
+                                    @Html.LabelFor(m => m.Birthdate)
+                                </span>
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Birthdate, new { @class = "joms-input", @id = "txtDOB", @readOnly = "true" })
+                                </div>
+                            </div>
+
+
+                            <div class="joms-form__group has-privacy">
+                                <span>
+                                    @Html.LabelFor(m => m.Aboutme)
+                                </span>
+                                <div class="col-md-10">
+                                    @Html.TextAreaFor(m => m.Aboutme, new { @class = "joms-textarea" })
+                                </div>
+                            </div>
+
+
+                            <legend class="joms-form__legend">Contact Information</legend>
+
+
+
+                            <div class="joms-form__group has-privacy">
+                                @Html.LabelFor(m => m.Website)
+                                <div class="joms-table">
+                                    <div class="joms-table__col">
+                                        <div class="joms-select--wrapper">
+                                            <select name="field12" class="joms-select joms-table--30">
+                                                <option value="http://" @ViewBag.protocol==http:?"selected":"">http://</option>
+                                                <option value="https://" @ViewBag.protocol==https:?"selected":"">https://</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="joms-gap--inline joms-table__col"></div>
+                                    <div class="joms-table__col">
+
+                                        @Html.TextBoxFor(m => m.Website, new { @class = "validate-profile-url joms-input" })
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+                            @Html.HiddenFor(m => m.Email)
+                            @Html.HiddenFor(m => m.UserName)
+                            <div class="joms-form__group">
+                                <span></span>
+                                Fields marked with an asterisk (*) are required.
+                            </div>
+                            <div class="joms-form__group">
+                                <span></span>
+                                <button type="submit" name="submit" id="btnSubmit" class="joms-button--primary joms-button--full-small">
+                                    Save Change                <span class="joms-loading" style="display:none">
+                                        &nbsp;
+                                        <img src="/components/com_community/assets/ajax-loader.gif" alt="loader">
+                                    </span>
+                                </button>
+                            </div>
+                        }
+                    </div>
+
+                    <div id="joms-app--aboutme-special" class="joms-tab__content joms-tab__content--stream  app-core" style="display: none;">
+                        @using (Html.BeginForm("ProfileEdit", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary("", new { @class = "text-danger" })
+                            <legend class="joms-form__legend">Basic Information</legend>
+
+                            <div class="joms-form__group has-privacy">
+                                <span>
+                                    @Html.LabelFor(m => m.UserName)
+                                </span>
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = "joms-input", @readOnly = "true" })
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="joms-form__group has-privacy">
+                                <span>
+                                    @Html.LabelFor(m => m.Email)
+                                </span>
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "joms-input", @readOnly = "true" })
+                                </div>
+                            </div>
+
+
+                            <div class="joms-form__group has-privacy">
+                                <span>
+                                    Password
+                                </span>
+                                <div class="col-md-10">
+                                    @Html.Password("txtPass", "", new { @class = "joms-input" });
+                                </div>
+                            </div>
+
+                            <div class="joms-form__group has-privacy">
+                                <span>
+                                    Verify Password
+                                </span>
+                                <div class="col-md-10">
+                                    @Html.Password("txtVerifyPass", "", new { @class = "joms-input" });
+                                </div>
+                            </div>
+
+                            @Html.HiddenFor(m => m.Email)
+                            @Html.HiddenFor(m => m.UserName)
+                            <div class="joms-form__group">
+                                <span></span>
+                                Fields marked with an asterisk (*) are required.
+                            </div>
+                            <div class="joms-form__group">
+                                <span></span>
+                                <button type="submit" name="submit" id="btnSubmit" class="joms-button--primary joms-button--full-small">
+                                    Save Change                <span class="joms-loading" style="display:none">
+                                        &nbsp;
+                                        <img src="/components/com_community/assets/ajax-loader.gif" alt="loader">
+                                    </span>
+                                </button>
+                            </div>
+                        }
+                    </div>
+        </div>
+
+
+
+
+    </div>
+
+
+</div>
+<div id="modalReplyFriend" style="display:none">
+    <div class="mfp-bg mfp-ready opacityModalAddFan"></div>
+    <div class="mfp-wrap mfp-close-btn-in mfp-auto-cursor mfp-ready repFan" tabindex="-1" style="overflow-x: hidden; overflow-y: auto;">
+        <div class="mfp-container mfp-inline-holder joms-popup__wrapper mfp-s-ready">
+            <div class="mfp-content">
+                <div class="joms-popup joms-popup--whiteblock">
+                    <div class="joms-popup__title">
+                        <button class="mfp-close closeModalReplyAddFriend" type="button" title="Close (Esc)">×</button>Pending Friend Request
+                    </div>
+                    <div data-ui-object="popup-step-1">
+                        <div class="joms-popup__content">
+                            <div class="joms-stream__header" style="padding:0">
+                                <div class="joms-avatar--stream">
+                                    <img src="http://socialize.jomsocial.com/images/avatar/thumb_ac60bfaf953aea9f068fb06c.jpg">
+                                </div>
+                                <div class="joms-stream__meta">
+                                    <span><strong>@Model.Name</strong> gui loi ket ban den ban.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="joms-popup__content">
+                            <textarea id="msgAddFriend" class="joms-textarea" style="margin:0">@Model.Message</textarea>
+                        </div>
+                        <div class="joms-popup__action">
+                            <a href="#" data-request="deny" class="joms-button--neutral joms-button--small joms-left btnAcceptOrDenyFan">Tu choi</a> &nbsp;
+
+                            <button data-request="accept" class="joms-button--primary joms-button--small btnAcceptOrDenyFan">Dong y</button>
+
+
+                            <input type="hidden" id="idFriend" value="@Model.Id" />
+
+                        </div>
+                    </div>
+                    <div data-ui-object="popup-step-2" class="joms-popup__hide">
+                        <div class="joms-popup__content joms-popup__content--single" data-ui-object="popup-message"></div><div class="joms-popup__action">
+                            <button class="joms-button--neutral joms-button--small joms-js--button-close">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mfp-preloader">Loading...</div>
+        </div>
+    </div>
+</div>
+<div id="modalAddFan" style="display:none">
+    <div class="mfp-bg mfp-ready opacityModalAddFan"></div>
+    <div class="mfp-wrap mfp-close-btn-in mfp-auto-cursor mfp-ready addFan" tabindex="-1" style="overflow-x: hidden; overflow-y: auto;">
+        <div class="mfp-container mfp-inline-holder joms-popup__wrapper mfp-s-ready">
+            <div class="mfp-content">
+                <div class="joms-popup joms-popup--whiteblock">
+                    <div class="joms-popup__title">
+                        <button class="mfp-close closeModalAddFriend" type="button" title="Close (Esc)">×</button>Add New Friend
+                    </div>
+                    <div data-ui-object="popup-step-1">
+                        <div class="joms-popup__content">
+                            <div class="joms-stream__header" style="padding:0">
+                                <div class="joms-avatar--stream">
+                                    <img src="http://socialize.jomsocial.com/images/avatar/thumb_ac60bfaf953aea9f068fb06c.jpg">
+                                </div>
+                                <div class="joms-stream__meta">
+                                    <span>Add <strong>@Model.Name</strong> as your friend? Please add your introduction text below.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="joms-popup__content">
+                            <textarea id="msgAddFriend" class="joms-textarea" style="margin:0">Hi, I'd like to add you as friend.</textarea>
+                        </div>
+                        <div class="joms-popup__action">
+                            <a href="javascript:" class="joms-button--neutral joms-button--small joms-left">Cancel</a> &nbsp;
+
+                            <button class="joms-button--primary joms-button--small btnAddFriend">Add Friend</button>
+
+
+                            <input type="hidden" id="idFriend" value="@Model.Id" />
+
+                        </div>
+                    </div>
+                    <div data-ui-object="popup-step-2" class="joms-popup__hide">
+                        <div class="joms-popup__content joms-popup__content--single" data-ui-object="popup-message"></div><div class="joms-popup__action">
+                            <button class="joms-button--neutral joms-button--small joms-js--button-close">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mfp-preloader">Loading...</div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+
+    var htmlModalAddFan = $("#modalAddFan").html();
+
+    $(".isAddFriend").click(function () {
+        $(this).closest("body").append(htmlModalAddFan);
+    });
+
+
+    $("body").delegate(".closeModalAddFriend", "click", function () {
+        $(this).closest(".addFan").remove();
+        $(this).closest("body").find(".opacityModalAddFan").remove();
+    });
+
+   $("body").delegate(".btnAddFriend", "click", function () {
+        $.ajax({
+            url: '/user/AddFriend',
+            type: 'POST',
+            data: { id: $("#idFriend").val(), msg: $("#msgAddFriend").html() },
+            success: function (data) {
+                //called when successful
+
+                location.reload();
+            },
+            error: function (e) {
+                //called when there is an error
+                console.log("them that bai")
+            }
+        });
+    });
+
+
+   var htmlModalReplyAddFan = $("#modalReplyFriend").html();
+
+   $(".replyFriend").click(function () {
+       $(this).closest("body").append(htmlModalReplyAddFan);
+   });
+
+   $("body").delegate(".closeModalReplyAddFriend", "click", function () {
+       $(this).closest(".repFan").remove();
+       $(this).closest("body").find(".opacityModalAddFan").remove();
+   });
+
+   $("body").delegate(".btnAcceptOrDenyFan", "click", function () {
+       $.ajax({
+           url: '/user/ReplyFriend',
+           type: 'POST',
+           data: { RequestId: $("#idFriend").val(), StatusReply: $(this).attr("data-request") },
+           success: function (data) {
+               //called when successful
+
+               location.reload();
+           },
+           error: function (e) {
+               //called when there is an error
+               console.log("them that bai")
+           }
+       });
+   });
+
+</script>
+        </div>
+</div>

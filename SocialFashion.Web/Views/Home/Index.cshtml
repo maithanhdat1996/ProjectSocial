@@ -1,0 +1,114 @@
+﻿@{
+    ViewBag.Title = "Wall";
+    Layout = "~/Views/Share/Layout.cshtml";
+}
+
+<div class="publishContainer">
+    <textarea class="form-control" id="txtMessage" data-bind="value: newMessage, jqAutoresize: {}" style="height:5em;" placeholder="What's on your mind?"></textarea>
+    <div class="row">
+        <div class="col-lg-2 col-lg-offset-8">
+            <select class="form-control" id="sltStatus" data-bind="value: sltStatus">
+                <option value="0">Public</option>
+                <option value="1">Friend</option>
+                <option value="2">Private</option>
+            </select>
+        </div>
+        <div class="col-lg-2">
+            <input type="button" class="btn btn-default" data-url="/Wall/SavePost" value="Share" id="btnShare" data-bind="click: addPost">
+        </div>
+    </div>
+</div>
+<p class="error" style="color:red" data-bind="text:error"></p>
+<div class="notification" data-bind="visible: newPosts().length > 0"><a data-bind="click: loadNewPosts"> <span data-bind="text: newPosts().length"></span> new post(s)</a></div>
+<div data-bind="foreach: posts" class="joms-stream joms-embedly--left joms-js--stream joms-js--stream-187 " data-stream-id="187" data-stream-type="photos">
+    <div class="joms-stream__header">
+        <div class="joms-avatar--stream joms-online">
+            <a href="/demo/profile">
+                <img data-bind="attr: { src: PostedByAvatar }">
+            </a>
+        </div>
+        <div class="joms-stream__meta">
+            <a class="joms-stream__user" href="/demo/profile"><span data-bind="text: PostedByName"></span></a>
+                post a status
+            <span class="joms-stream__time">
+                <span class="timeago" data-bind="text: PostedDate"></span>
+
+                <svg viewBox="0 0 16 16" class="joms-icon joms-show-earth">
+
+
+            </span>
+        </div>
+
+
+        <div class="joms-list__options">
+
+            <a href="javascript:" class="joms-button--options" data-ui-object="joms-dropdown-button">
+            </a>
+
+            <ul class="joms-dropdown">
+                <li>
+                    <a href="javascript:" data-propagate="1" onclick="joms.api.streamSelectPrivacy('187');">
+                        Privacy Setting
+                    </a>
+                </li>
+
+                <li>
+                    <a href="javascript:" data-propagate="1" onclick="joms.api.streamHide('187', '69');">
+                        Hide this stream
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:" data-propagate="1" onclick="joms.api.streamRemove('187');">
+                        Delete post
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="joms-stream__body">
+        <p><span class="joms-js--stream-text-187" data-bind="text: Message"></span></p>
+    </div>
+
+    <a data-bind="click: addLike"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+
+    <div class="joms-stream__status">
+        <span data-bind="text: CountLike"></span> person likes this
+    </div>
+    <a class="commentNotification" data-bind="click: loadNewComments, visible: NewComments().length > 0"> <span data-bind=" text NewComments().length"></span> new comment(s)</a>
+    <div data-bind="foreach: PostComments">
+        <div class="joms-comment joms-js--comments joms-js--comments-157" data-id="157">
+            <div class="joms-comment__item joms-js--comment joms-js--comment-6" data-id="6" data-parent="157" data-comment-id="6">
+                <div class="joms-comment__header">
+                    <div class="joms-avatar--comment ">
+                        <a href="/72-/profile">
+                            <img data-bind="attr: { src: CommentedByAvatar }">
+                        </a>
+                    </div>
+                    <div class="joms-comment__body joms-js--comment-body">
+                        <a class="joms-comment__user" href="/72-/profile"><span data-bind="text: CommentedByName"></span></a>
+                        <span class="joms-js--comment-content">
+                            <span class="joms-js--comment-text-6">
+                                <span data-bind="text: Message"></span><br />
+                            </span>
+                        </span>
+
+                        <span class="joms-comment__time"><small><span class="timeago" data-bind="text: CommentedDate"></span></small></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<span class="joms-comment__time"><small>3 years ago </small></span>-->
+    </div>
+
+    <div class="joms-comment__reply joms-js--newcomment joms-js--newcomment-187" data-id="187">
+        <div class="joms-textarea__wrapper">
+            <textarea data-bind="value: newCommentMessage, jqAutoresize: {}" placeholder="write a comment..." class="joms-textarea" name="comment" data-id="187"
+                      data-tag-func="photo" data-tag-id="82"></textarea>
+        </div>
+    </div>
+    <button class="joms-button--comment joms-js--btn-send" data-bind="click: addComment">
+        Send
+    </button>
+</div>
+<script src="~/Scripts/wallpost.js"></script>

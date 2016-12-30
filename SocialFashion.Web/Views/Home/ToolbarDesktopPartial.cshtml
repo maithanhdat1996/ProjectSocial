@@ -1,0 +1,375 @@
+﻿
+
+     
+<div class="joms-toolbar--desktop">
+    <ul>
+        <li>
+            <a href="/">
+
+
+
+            </a>
+        </li>
+        <li class="">
+            <a href="/profile" class="joms-js--has-dropdown" data-ui-object="joms-dropdown-button">Profile</a>
+            <ul class="joms-dropdown joms-arrow--top-left">
+                <li>
+                    <a href="/profile/uploadAvatar">
+                        Change Profile Picture
+                    </a>
+                </li>
+                <li>
+                    <a href="/profile/linkVideo">
+                        Change Profile Video
+                    </a>
+                </li>
+                <li>
+                    <a href="/profile/edit">
+                        Edit Profile
+                    </a>
+                </li>
+                <li>
+                    <a href="/profile/editDetails">
+                        Edit Details
+                    </a>
+                </li>
+                <li>
+                    <a href="/profile/privacy">
+                        Privacy
+                    </a>
+                </li>
+                <li>
+                    <a href="/profile/preferences">
+                        Preferences
+                    </a>
+                </li>
+                <li>
+                    <a href="/profile/editPage">
+                        Customize My Page
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="">
+            <a href="/friends" class="joms-js--has-dropdown" data-ui-object="joms-dropdown-button">Friends</a>
+            <ul class="joms-dropdown joms-arrow--top-left">
+                <li>
+                    <a href="/friends">
+                        Show All
+                    </a>
+                </li>
+                <li>
+                    <a href="/search">
+                        Search
+                    </a>
+                </li>
+                <li>
+                    <a href="/search/advancesearch">
+                        Advanced Search
+                    </a>
+                </li>
+                <li>
+                    <a href="/friends/invite">
+                        Invite Friends
+                    </a>
+                </li>
+                <li>
+                    <a href="/friends/sent">
+                        Request Sent
+                    </a>
+                </li>
+                <li>
+                    <a href="/friends/pending">
+                        Pending my approval
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="">
+            <a href="/jomsocial/all-groups">Groups</a>
+        </li>
+        <li class="">
+            <a href="/demo/photos">Photos</a>
+        </li>
+        <li class="">
+            <a href="/jomsocial/all-videos">Videos</a>
+        </li>
+        <li class="">
+            <a href="/jomsocial/all-events/demo">Events</a>
+        </li>
+        <li class="">
+            <a href="@Url.Action("Index", "Members")">Members</a>
+        </li>
+        <li class="">
+            <a href="/inbox">Messages</a>
+        </li>
+        <li id="notification">
+            <a class="joms-js--notification-general" >
+
+                <span class="glyphicon glyphicon-globe noti" style="font-size:15px"><span class="count joms-notifications__label joms-js--notiflabel-frequest">&nbsp;</span></span>
+
+
+                
+            </a>
+            <ul class="joms-popover joms-arrow--top joms-popover--toolbar-general noti-content" >
+                
+            </ul>
+        </li>
+        <li id="fan">
+            <a class="joms-js--notification-friendrequest" >
+
+
+                
+                <span class="glyphicon glyphicon-user noti" style="font-size:15px"><span class="count joms-notifications__label joms-js--notiflabel-frequest">&nbsp;</span></span>
+            </a>
+            <ul class="joms-popover joms-arrow--top joms-popover--toolbar-friendrequest noti-content">
+               
+            </ul>
+        </li>
+
+
+        <li id="message">
+            <a class="joms-js--notification-inbox" >
+
+
+
+                <span class="glyphicon glyphicon-envelope noti" style="font-size:15px"><span class="count joms-notifications__label joms-js--notiflabel-frequest">&nbsp;</span></span>
+            </a>
+            <ul class="joms-popover joms-arrow--top joms-popover--toolbar-pm noti-content">
+                
+            </ul>
+        </li>
+
+
+        <li>
+            <a class="joms-js--notification-search" href="javascript:" data-ui-object="joms-dropdown-button">
+
+
+
+            </a>
+            <ul class="joms-popover joms-popover--toolbar-search">
+                <li class="joms-js--noremove joms-js--field">
+                    <input type="text" class="joms-input" placeholder="Search"
+                           oninput="joms.view.toolbar.search(this, event);">
+                </li>
+                <li class="joms-js--noremove joms-js--loading">
+                    <img src="/Content/client/components/com_community/assets/ajax-loader.gif" alt="loader">
+                </li>
+                <li class="joms-js--noremove joms-js--viewall">
+                    <div>
+                        <a href="javascript:" class="joms-button--neutral joms-button--full"
+                           data-lang="View all %1$s results"></a>
+                        <form method="post" action="/search">
+                            <input type="hidden" name="q" value="">
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </li>
+
+        <li class="joms-right">
+            <a class="joms-js--logout" href="/component/users/?task=user.logout&amp;de221ed384f2d788407e53039bf9a67e=1&amp;return=Lw==&amp;Itemid=">
+
+                <use xlink:href="http://socialize.jomsocial.com/#joms-icon-switch"></use>
+
+            </a>
+        </li>
+
+    </ul>
+</div>
+
+<script src="/signalr/hubs"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#notification span.noti').click(function (e) {
+           
+            e.stopPropagation();
+            $('.noti-content').show();
+            var count = 0;
+            count = parseInt($('span.count').html()) || 0;
+            if (count > 0) {
+                updateNotification();
+            }
+            
+            $('span.count', this).html('&nbsp;');
+        });
+
+        $('html').click(function () {
+            $('.noti-content').hide();
+        });
+
+        function updateNotification() {
+            $('#notification  .noti-content').empty();
+            $('#notification  .noti-content').append($('<li>loading...</li>'));
+
+            $.ajax({
+                type: "GET",
+                url: '/home/GetNotificationAPI',
+                success: function (response) {
+                    $('#notification .noti-content').empty();
+                    if (response.length == 0) {
+                        $('#notification .noti-content').append($('<li>No data available</li>'));
+                    }
+                    console.log(response);
+                    $.each(response, function (index, value) {
+                        $('#notification .noti-content').append($('<li>Nguoi gui : ' + value.Name + '</li>'));
+                    });
+                }
+            });
+        }
+
+        function updateNotificationCount() {
+            
+            $.ajax({
+                type: "GET",
+                url: '/home/GetCountNotificationAPI',
+                success: function (response) {
+                    $('#notification span.count').html(response);
+                    
+                }
+            });;
+            
+           
+        }
+
+        
+
+
+        $('#message span.noti').click(function (e) {
+            console.log(1);
+            e.stopPropagation();
+            $('#message .noti-content').show();
+            var count = 0;
+            count = parseInt($('#message span.count').html()) || 0;
+            if (count > 0) {
+                updateMessage();
+            }
+
+            $('#message span.count', this).html('&nbsp;');
+        });
+
+        $('html').click(function () {
+            $('#message .noti-content').hide();
+        });
+
+        function updateMessage() {
+            $('#message .noti-content').empty();
+            $('#message .noti-content').append($('<li>loading...</li>'));
+
+            $.ajax({
+                type: "GET",
+                url: '/home/GetMessageAPI',
+                success: function (response) {
+                    $('#message .noti-content').empty();
+                    if (response.length == 0) {
+                        $('#message .noti-content').append($('<li>No data available</li>'));
+                    }
+                    $.each(response, function (index, value) {
+                        $('#message .noti-content').append($('<li>Nguoi gui : ' + value.SenderEmail + '</li>'));
+                    });
+                }
+            });
+        }
+
+        function updateMessageCount() {
+
+            $.ajax({
+                type: "GET",
+                url: '/home/GetCountMessageAPI',
+                success: function (response) {
+                    $('#message span.count').html(response);
+
+                }
+            });;
+
+
+        }
+
+        $('#fan span.noti').click(function (e) {
+
+            e.stopPropagation();
+            $('#fan .noti-content').show();
+            var count = 0;
+            count = parseInt($('#fan span.count').html()) || 0;
+            if (count > 0) {
+                updateFan();
+            }
+
+            $('#fan span.count', this).html('&nbsp;');
+        });
+
+        $('html').click(function () {
+            $('#fan .noti-content').hide();
+        });
+
+        function updateFan() {
+            $('#fan .noti-content').empty();
+            $('#fan .noti-content').append($('<li>loading...</li>'));
+
+            $.ajax({
+                type: "GET",
+                url: '/home/GetFanAPI',
+                success: function (response) {
+                    console.log(response)
+                    $('#fan .noti-content').empty();
+                    if (response.length == 0) {
+                        $('#fan .noti-content').append($('<li>No data available</li>'));
+                    }
+                    $.each(response, function (index, value) {
+                        $('#fan .noti-content').append($('<li>Nguoi gui : ' + value.Name + '</li>'));
+                    });
+                }
+            });
+        }
+
+        function updateFanCount() {
+
+            $.ajax({
+                type: "GET",
+                url: '/home/GetCountFanAPI',
+                success: function (response) {
+                    $('#fan span.count').html(response);
+
+                }
+            });;
+
+
+        }
+
+        var notificationHub = $.connection.notificationHub;
+       
+        var fanHub = $.connection.fanHub;
+        
+        var messageHub = $.connection.messageHub;
+
+        $.connection.hub.start().done(function () {
+
+        });
+
+        notificationHub.client.notify = function (msg) {
+
+            
+                updateNotificationCount();
+           
+                
+
+        };
+        messageHub.client.msg = function (msg) {
+
+
+
+            updateMessageCount();
+
+
+        };
+        fanHub.client.fan = function (msg) {
+
+
+
+            updateFanCount();
+
+        };
+        
+    })
+</script>
+    

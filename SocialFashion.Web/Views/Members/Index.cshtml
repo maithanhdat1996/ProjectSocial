@@ -1,0 +1,233 @@
+﻿@model SocialFashion.Web.Infrastructure.Core.PaginationSet<SocialFashion.Model.Models.AspNetUser>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Share/Layout.cshtml";
+}
+<div class="joms-page">
+    @if (Model.Count > 0)
+    {
+        <div class="joms-list__search">
+            <div class="joms-list__search-title">
+                <h3 class="joms-page__title">All Members</h3>
+            </div>
+
+            <div class="joms-list__utilities">
+                <form method="post" class="joms-inline--desktop" action="/search/advancesearch">
+                    <span>
+                        <input type="text" name="q" class="joms-input--search" value="" placeholder="Search for Members">
+                    </span>
+                    <span>
+                        <button class="joms-button--neutral">GO</button>
+                    </span>
+                    <input type="hidden" name="search" value="friends">
+                </form>
+                <div onclick="window.location='/friends/invite';" class="joms-button--add">
+                    Invite Friends                    <svg class="joms-icon" viewBox="0 0 16 16">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://socialize.jomsocial.com/search/browse#joms-icon-plus" class="joms-icon--svg-fixed joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified"></use>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="joms-subnav">
+            <ul>
+                <li class=" ">
+                    <a href="/search/browse" class="active" onclick="">All Members</a>
+                </li>
+                <li class=" ">
+                    <a href="/search/advancesearch" onclick="">Advanced search</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="joms-subnav__menu">
+            <a href="javascript:" class="joms-button--neutral joms-button--full" data-ui-object="joms-dropdown-button">
+                All Members        <svg viewBox="0 0 16 16" class="joms-icon">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://socialize.jomsocial.com/search/browse#joms-icon-arrow-down" class="joms-icon--svg-fixed joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified"></use>
+                </svg>
+            </a>
+            <ul class="joms-dropdown">
+                <li class=" ">
+                    <a href="/search/browse" class="active" onclick="">All Members</a>
+                </li>
+                <li class=" ">
+                    <a href="/search/advancesearch" onclick="">Advanced search</a>
+                </li>
+            </ul>
+            <div class="joms-gap"></div>
+        </div>
+
+        <div class="joms-subnav--desktop">
+            <ul>
+                <li class=" ">
+                    <a href="/search/browse" class="active" onclick="">All Members</a>
+                </li>
+                <li class=" ">
+                    <a href="/search/advancesearch" onclick="">Advanced search</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="joms-sortings">
+
+            <div class="joms-select--wrapper">
+                <select class="joms-select" onchange="joms_change_filterdropdown(this.value);">
+                    <!-- <li class="filter-label">Sort by:</li> -->
+                    <option value="/search/browse?sort=avatar">With avatar</option>
+                    <option value="/search/browse?sort=online">Only Online</option>
+                    <option selected="" value="/search/browse?sort=latest">Latest</option>
+                    <option value="/search/browse?sort=alphabetical">Alphabetical</option>
+                    <option value="/search/browse?sort=featured">Featured</option>
+                </select>
+            </div>
+
+
+
+
+            <div class="joms-select--wrapper">
+                <select class="joms-select" onchange="window.location=this.value;">
+
+                    <option value="/search/browse?filter=all" selected="selected">Sort alphabetical</option>
+
+                    <option value="/search/browse?filter=abc">abc</option>
+
+                    <option value="/search/browse?filter=def">def</option>
+
+                    <option value="/search/browse?filter=ghi">ghi</option>
+
+                    <option value="/search/browse?filter=jkl">jkl</option>
+
+                    <option value="/search/browse?filter=mno">mno</option>
+
+                    <option value="/search/browse?filter=pqr">pqr</option>
+
+                    <option value="/search/browse?filter=stu">stu</option>
+
+                    <option value="/search/browse?filter=vwx">vwx</option>
+
+                    <option value="/search/browse?filter=yz">yz</option>
+
+                    <option value="/search/browse?filter=others">Others</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="joms-gap"></div>
+
+        <ul class="joms-list--friend">
+            @foreach (var user in Model.Items)
+            {
+                <li class="joms-list__item">
+                    <!-- avatar -->
+                    <div class="joms-list__avatar ">
+                        <a href="/128-ijoomla-com/profile" class="joms-avatar">
+                            <img src="@user.ImageAvartar" alt="iJoomla.com">
+                        </a>
+                    </div>
+                    <div class="joms-list__body">
+                        <!-- name -->
+                        <a href="/128-ijoomla-com/profile"><h4 class="joms-text--username">@user.Name</h4></a>
+
+                        <!-- friends count -->
+                        <div class="joms-list__details">
+
+                            <span class="joms-text--title">
+                                0 Friends
+                            </span>
+
+                            <!-- distances -->
+                        </div>
+
+                    </div>
+                    <div class="joms-list__actions">
+
+
+                        <div class="joms-list__options">
+                            <a href="javascript:" data-ui-object="joms-dropdown-button" class="">
+                                <svg viewBox="0 0 14 20" class="joms-icon">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://socialize.jomsocial.com/search/browse#joms-icon-cog" class="joms-icon--svg-fixed joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified"></use>
+                                </svg>
+                            </a>
+                            <ul class="joms-dropdown" style="display: none;">
+                                <li><a href="javascript:">Block user</a></li>
+                            </ul>
+                        </div>
+
+
+                        <div class="joms-list__button--dropdown">
+                            <a href="javascript:" class="joms-button--neutral joms-button--full-small joms-button--smallest" data-ui-object="joms-dropdown-button" onclick="joms.api.friendAdd('128')">
+                                <svg viewBox="0 0 14 20" class="joms-icon">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://socialize.jomsocial.com/search/browse#joms-icon-user" class="joms-icon--svg-fixed joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified joms-icon--svg-unmodified"></use>
+                                </svg>
+                                Add as Friend
+                            </a>
+                            <ul class="joms-dropdown"></ul>
+                        </div>
+
+                    </div>
+                </li>
+
+            }
+        </ul>
+
+        if (Model.TotalPages > 1)
+        {
+            var startPageIndex = Math.Max(1, Model.Page - Model.MaxPage / 2);
+            var endPageIndex = Math.Min(Model.TotalPages, Model.Page + Model.MaxPage / 2);
+        <div class="joms-pagination">
+            <ul class="pagination">
+                @if (Model.Page > 1)
+                {
+                <li ><a href="?page=1">Start</a></li>
+                <li ><a href="?page=@(Model.Page-1)">Prev</a></li>
+                }
+                else
+                {
+                    <li class="disabled"><a >Start</a></li>
+                    <li class="disabled"><a >Prev</a></li>
+                }
+                @for (int i = startPageIndex; i <= endPageIndex; i++)
+                {
+                    if (Model.Page == i)
+                    {
+                        <li class="active"><a href="?page=@i" title="Trang @i">@i</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="?page=@i" title="Trang @i">@i</a></li>
+                    }
+                }
+                @if (Model.Page < Model.TotalPages)
+                {
+                    <li>
+                        <a href="?page=@(Model.Page+1)" aria-label="Next">
+                            Next
+                        </a>
+                    </li>
+                    <li>
+                        <a href="?page=@Model.TotalPages" aria-label="Last">
+                            End
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="disabled">
+                        <a  aria-label="Next">
+                            Next
+                        </a>
+                    </li>
+                    <li class="disabled">
+                        <a  aria-label="Last">
+                            End
+                        </a>
+                    </li>
+                }
+
+
+            </ul>
+        </div>
+        }
+    }
+</div>

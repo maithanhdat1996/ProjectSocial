@@ -1,0 +1,72 @@
+﻿@using SocialFashion.Web.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Share/Layout.cshtml";
+}
+
+
+ 
+
+    
+                <script type="text/javascript">joms.filters && joms.filters.bind();</script>
+
+
+                <div class="joms-landing ">
+                    <div class="joms-landing__cover">
+                        <div class="joms-landing__image" style="background:url(components/com_community/assets/frontpage-image-default.jpg) no-repeat center center;">
+                        </div>
+                        <div class="joms-landing__content">
+                            <div class="joms-landing__text">
+                                <h2>Get Connected!</h2>
+                                <p>Come and join our community. Expand your network and get to know new people!</p>
+                            </div>
+
+                            <div class="joms-landing__signup">
+                                <button class="joms-button--signup" onclick="location.href='/Account/RegisterInfo'">
+                                    <svg viewBox="0 0 16 16" class="joms-icon joms-icon--white">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/#joms-icon-signup"></use>
+                                    </svg>
+                                    Register account
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="joms-landing__action ">
+                       @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                       {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationMessage("CustomError", new { @class = "text-danger" })
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="joms-input--append">
+                                
+                                @Html.TextBoxFor(m => m.Email, new { @class = "joms-input" })
+                               
+                            </div>
+                            <div class="joms-input--append">
+                                @Html.PasswordFor(m => m.Password, new { @class = "joms-input" })
+                                
+                            </div>
+                            <button class="joms-button--login" type="submit">Login</button>
+
+                            <div class="joms-checkbox">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                <span>Remember me</span>
+                            </div>
+
+
+                            <a href="/Account/ForgotPassword" tabindex="6">Forgot Password?</a>
+
+
+
+                       }
+
+                        
+
+
+                    </div>
+                </div>
+
+
+
+
